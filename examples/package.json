@@ -1,11 +1,9 @@
 {
   "dependencies": {
     "hammerjs": "^2.0.8",
-    "lodash": "^4.17.11",
-    "raf": "^3.4.1",
     "rebound": "^0.1.0",
     "sister": "^3.0.1",
-    "vendor-prefix": "^0.1.0"
+    "prefix": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.2.2",
@@ -15,10 +13,12 @@
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14",
+    "webpack-bundle-analyzer": "^3.0.3",
     "babel-loader": "^8.0.5"
   },
   "private": true,
   "scripts": {
-    "start": "webpack-dev-server --open --config ./webpack.config.js"
+    "start": "webpack-dev-server --open --config ./webpack.config.js --mode development",
+    "build": "webpack -p --mode production"
   }
 }

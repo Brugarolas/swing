@@ -1,14 +1,18 @@
-import _ from 'lodash';
 import Sister from 'sister';
 import Hammer from 'hammerjs';
 import rebound from 'rebound';
-import vendorPrefix from 'vendor-prefix';
-import raf from 'raf';
+import prefix from 'prefix';
 import Direction from './Direction';
 import {
   elementChildren,
   isTouchDevice
 } from './utilities';
+
+// Request Animation Frame
+const raf = window.requestAnimationFrame ||
+  window.webkitRequestAnimationFrame ||
+  window.mozRequestAnimationFrame ||
+  window.msRequestAnimationFrame;
 
 /**
  * @param {number} fromX
@@ -419,7 +423,10 @@ Card.makeConfig = (config = {}) => {
     transform: Card.transform
   };
 
-  return _.assign({}, defaultConfig, config);
+  return {
+    ...defaultConfig,
+    ...config
+  };
 };
 
 /**
@@ -434,7 +441,7 @@ Card.makeConfig = (config = {}) => {
  * @returns {undefined}
  */
 Card.transform = (element, coordinateX, coordinateY, rotation) => {
-  element.style[vendorPrefix('transform')] = 'translate3d(0, 0, 0) translate(' + coordinateX + 'px, ' + coordinateY + 'px) rotate(' + rotation + 'deg)';
+  element.style[prefix('transform')] = 'translate3d(0, 0, 0) translate(' + coordinateX + 'px, ' + coordinateY + 'px) rotate(' + rotation + 'deg)';
 };
 
 /**
@@ -471,7 +478,7 @@ Card.appendToParent = (element) => {
  * Invoked when card is added to the stack (when prepend is true).
  *
  * @param {HTMLElement} element The target element.
- * @return {undefined}
+ * @returns {undefined}
  */
 Card.prependToParent = (element) => {
   const parentNode = element.parentNode;
@@ -497,8 +504,8 @@ Card.throwOutConfidence = (xOffset, yOffset, element) => {
   return Math.max(xConfidence, yConfidence);
 };
 
-/**
- * Determines if element is being thrown out of the stack.
+/*
+ *Determines if element is being thrown out of the stack.
  *
  * Element is considered to be thrown out when throwOutConfidence is equal to 1.
  *
@@ -520,7 +527,7 @@ Card.isThrowOut = (xOffset, yOffset, element, throwOutConfidence) => {
  * @returns {number}
  */
 Card.throwOutDistance = (min, max) => {
-  return _.random(min, max);
+  return Math.floor(Math.random() * (max + 1 - min)) + min;
 };
 
 /**

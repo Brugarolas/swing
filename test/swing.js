@@ -1,5 +1,6 @@
 /* eslint-disable max-nested-callbacks */
 
+import raf from 'raf';
 import {
   expect
 } from 'chai';
@@ -15,6 +16,7 @@ describe('DOM', () => {
       const dom = new jsdom.JSDOM('<!DOCTYPE html><html><head></head><body></body></html>');
 
       global.window = dom.window;
+      global.window.requestAnimationFrame = raf;
       global.document = dom.window.document;
       global.navigator = {};
 
