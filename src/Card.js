@@ -58,7 +58,6 @@ const Card = (stack, targetElement, prepend) => {
   let throwDirectionToEventName;
   let throwOutDistance;
   let throwWhere;
-  let appendedDuringMouseDown;
 
   const construct = () => {
     card = {};
@@ -73,7 +72,7 @@ const Card = (stack, targetElement, prepend) => {
       coordinateY: 0
     };
 
-        /* Mapping directions to event names */
+    /* Mapping directions to event names */
     throwDirectionToEventName = {};
     throwDirectionToEventName[Direction.LEFT] = 'throwoutleft';
     throwDirectionToEventName[Direction.RIGHT] = 'throwoutright';
@@ -195,16 +194,10 @@ const Card = (stack, targetElement, prepend) => {
       })();
     } else {
       targetElement.addEventListener('mousedown', () => {
-        appendedDuringMouseDown = Card.appendToParent(targetElement) || appendedDuringMouseDown;
         eventEmitter.trigger('panstart');
       });
 
       targetElement.addEventListener('mouseup', () => {
-        if (appendedDuringMouseDown) {
-          targetElement.click();
-          appendedDuringMouseDown = false;
-        }
-
         if (isDraging && !isPanning) {
           eventEmitter.trigger('dragend', {
             target: targetElement
@@ -343,7 +336,7 @@ const Card = (stack, targetElement, prepend) => {
           throwDirection: lastThrow.direction
         });
 
-                /* Emits more accurate events about specific directions */
+        /* Emits more accurate events about specific directions */
         eventEmitter.trigger(throwDirectionToEventName[lastThrow.direction], {
           target: targetElement,
           throwDirection: lastThrow.direction

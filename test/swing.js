@@ -7,20 +7,19 @@ import sinon from 'sinon';
 import jsdom from 'jsdom';
 
 describe('DOM', () => {
-  beforeEach(() => {
-    global.document = jsdom.jsdom('<!doctype html><html><head></head><body></body></html>');
-
-    global.window = document.defaultView;
-    global.navigator = {};
-  });
-
   describe('Stack', () => {
     let Swing;
     let stack;
 
     beforeEach(() => {
+      const dom = new jsdom.JSDOM('<!DOCTYPE html><html><head></head><body></body></html>');
+
+      global.window = dom.window;
+      global.document = dom.window.document;
+      global.navigator = {};
+
       // eslint-disable-next-line global-require
-      Swing = require('../src');
+      Swing = require('../src').default;
       stack = Swing.Stack();
     });
 
@@ -177,7 +176,7 @@ describe('DOM', () => {
             });
           }, 20);
 
-                    // Timeout is required to accommodate requestAnimationFrame.
+          // Timeout is required to accommodate requestAnimationFrame.
           setTimeout(() => {
             expect(spy.callCount).to.equal(3);
 
@@ -195,9 +194,12 @@ describe('DOM', () => {
           env.card.on('rotation', spy);
 
           env.card.trigger('panstart');
-          env.card.trigger('panmove', {
-            deltaX: 10,
-            deltaY: 10
+
+          setTimeout(() => {
+            env.card.trigger('panmove', {
+              deltaX: 10,
+              deltaY: 10
+            });
           });
 
           setTimeout(() => {
@@ -218,7 +220,7 @@ describe('DOM', () => {
             expect(spy.callCount).to.equal(3);
 
             done();
-          }, 30);
+          }, 40);
         });
       });
       describe('transform', () => {
@@ -229,9 +231,12 @@ describe('DOM', () => {
           env.card.on('transform', spy);
 
           env.card.trigger('panstart');
-          env.card.trigger('panmove', {
-            deltaX: 10,
-            deltaY: 10
+
+          setTimeout(() => {
+            env.card.trigger('panmove', {
+              deltaX: 10,
+              deltaY: 10
+            });
           });
 
           setTimeout(() => {
@@ -252,7 +257,7 @@ describe('DOM', () => {
             expect(spy.callCount).to.equal(3);
 
             done();
-          }, 30);
+          }, 40);
         });
       });
     });

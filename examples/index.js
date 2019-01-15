@@ -1,1 +1,3 @@
-window.swing = require('swing');
+import Swing from '../src';
+
+window.swing = Swing;

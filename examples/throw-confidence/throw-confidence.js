@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     stack.on('dragmove', function (e) {
-        throwOutConfidenceElements[e.throwDirection == gajus.Swing.Card.DIRECTION_RIGHT ? 'yes' : 'no'].opacity = e.throwOutConfidence;
+        throwOutConfidenceElements[e.throwDirection == window.swing.Direction.RIGHT ? 'yes' : 'no'].opacity = e.throwOutConfidence;
 
         throwOutConfidenceBind.innerHTML = e.throwOutConfidence.toFixed(3);
         directionBind.innerHTML = e.throwDirection.toString();
