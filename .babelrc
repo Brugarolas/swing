@@ -10,5 +10,6 @@
         "modules": "auto"
       }
     ]
-  ]
+  ],
+  "comments": false
 }
