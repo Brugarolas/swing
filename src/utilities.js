@@ -13,12 +13,16 @@ const elementChildren = (element) => {
   });
 };
 
+const touchDevide = 'ontouchstart' in window ||
+  window.DocumentTouch && document instanceof window.DocumentTouch ||
+  navigator.maxTouchPoints || navigator.msMaxTouchPoints;
+
 /**
  * @see http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript/4819886#4819886
  * @returns {boolean}
  */
 const isTouchDevice = () => {
-  return 'ontouchstart' in window || navigator.msMaxTouchPoints;
+  return touchDevide;
 };
 
 export {

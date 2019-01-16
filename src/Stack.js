@@ -124,6 +124,20 @@ const Stack = (config) => {
     return index;
   };
 
+  /**
+  * Remove all instances of Card from the stack index.
+  *
+  * @returns {null}
+  */
+  stack.destroyAll = () => {
+    index.forEach((element) => {
+      eventEmitter.trigger('destroyCard', element.card);
+      element.card.unbindListeners();
+    });
+
+    index.length = 0;
+  };
+
   return stack;
 };
 

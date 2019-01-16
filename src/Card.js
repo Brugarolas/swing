@@ -130,8 +130,8 @@ const Card = (stack, targetElement, prepend) => {
     });
 
     eventEmitter.on('panmove', (event) => {
-      currentX = event.deltaX;
-      currentY = event.deltaY;
+      currentX = config.lateral ? event.deltaX : 0;
+      currentY = config.vertical ? event.deltaY : 0;
     });
 
     eventEmitter.on('panend', (event) => {
@@ -317,8 +317,8 @@ const Card = (stack, targetElement, prepend) => {
      * @returns {undefined}
      */
     throwWhere = (where, fromX, fromY, direction) => {
-      lastThrow.fromX = fromX;
-      lastThrow.fromY = fromY;
+      lastThrow.fromX = config.lateral ? fromX : 0;
+      lastThrow.fromY = config.vertical ? fromY : 0;
 
       // If direction argument is not set, compute it from coordinates.
       lastThrow.direction = direction || computeDirection(fromX, fromY, config.allowedDirections);
@@ -389,10 +389,21 @@ const Card = (stack, targetElement, prepend) => {
    *
    * @returns {undefined}
    */
-  card.destroy = () => {
+  card.unbindListeners = () => {
     mc.destroy();
     springThrowIn.destroy();
     springThrowOut.destroy();
+  };
+
+  /**
+   * Unbinds all Hammer.Manager events.
+   * Removes the listeners from the physics simulation.
+   * Remove card from stack.
+   *
+   * @returns {undefined}
+   */
+  card.destroy = () => {
+    card.unbindListeners();
 
     stack.destroyCard(card);
   };
@@ -414,13 +425,15 @@ Card.makeConfig = (config = {}) => {
       Direction.UP
     ],
     isThrowOut: Card.isThrowOut,
+    lateral: true,
     maxRotation: 20,
     maxThrowOutDistance: 500,
     minThrowOutDistance: 400,
     rotation: Card.rotation,
     throwOutConfidence: Card.throwOutConfidence,
     throwOutDistance: Card.throwOutDistance,
-    transform: Card.transform
+    transform: Card.transform,
+    vertical: true
   };
 
   return {
