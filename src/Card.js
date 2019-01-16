@@ -333,7 +333,7 @@ const Card = (stack, targetElement, prepend) => {
         });
       } else if (where === Card.THROW_OUT) {
         Card.appendToParent(targetElement);
-        springThrowOut.setCurrentValue(0).setAtRest().setVelocity(100).setEndValue(1);
+        springThrowOut.setCurrentValue(0).setAtRest().setVelocity(config.velocity).setEndValue(1);
 
         eventEmitter.trigger('throwout', {
           target: targetElement,
@@ -433,6 +433,7 @@ Card.makeConfig = (config = {}) => {
     throwOutConfidence: Card.throwOutConfidence,
     throwOutDistance: Card.throwOutDistance,
     transform: Card.transform,
+    velocity: 100,
     vertical: true
   };
 

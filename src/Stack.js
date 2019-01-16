@@ -107,6 +107,15 @@ const Stack = (config) => {
   };
 
   /**
+   * Returns al Cards instances in the stack.
+   *
+   * @returns {Array}
+   */
+  stack.getCards = () => {
+    return [...index];
+  };
+
+  /**
    * Remove an instance of Card from the stack index.
    *
    * @param {Card} card
