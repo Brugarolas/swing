@@ -36,6 +36,26 @@ const computeDirection = (fromX, fromY, allowedDirections) => {
 };
 
 /**
+ * @param {Config} config
+ * @returns {Hammer.Direction} computed direction
+ */
+const computeHammerDirections = (config) => {
+  let direction = Hammer.DIRECTION_NONE;
+
+  if (config.vertical) {
+    direction = Hammer.DIRECTION_VERTICAL;
+  }
+  if (config.lateral) {
+    direction = Hammer.DIRECTION_HORIZONTAL;
+  }
+  if (config.vertical && config.lateral) {
+    direction = Hammer.DIRECTION_ALL;
+  }
+
+  return direction;
+};
+
+/**
  * @param {Stack} stack
  * @param {HTMLElement} targetElement
  * @param {boolean} prepend
@@ -96,6 +116,7 @@ const Card = (stack, targetElement, prepend) => {
         [
           Hammer.Pan,
           {
+            direction: computeHammerDirections(config),
             threshold: 2
           }
         ]
