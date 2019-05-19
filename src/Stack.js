@@ -95,8 +95,8 @@ const Stack = (config) => {
    * @returns {Card|null}
    */
   stack.getCard = (element) => {
-    const group = index.find((elem) => {
-      return elem === element || elem.element === element;
+    const group = index.find((cardGroup) => {
+      return cardGroup === element || cardGroup.element === element;
     });
 
     if (group) {
@@ -122,8 +122,8 @@ const Stack = (config) => {
    * @returns {null}
    */
   stack.destroyCard = (card) => {
-    const idx = index.findIndex((elem) => {
-      return elem === card || elem.card === card;
+    const idx = index.findIndex((cardGroup) => {
+      return cardGroup === card || cardGroup.card === card;
     });
 
     index.splice(idx, 1);

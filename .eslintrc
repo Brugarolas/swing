@@ -2,5 +2,10 @@
   "root": true,
   "extends": [
     "canonical"
-  ]
+  ],
+  rules: {
+    "linebreak-style": 0,
+    "unicorn/prefer-node-remove": 0,
+    "unicorn/prefer-node-append": 0
+  }
 }

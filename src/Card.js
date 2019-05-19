@@ -9,10 +9,15 @@ import {
 } from './utilities';
 
 // Request Animation Frame
+const slowRafIE9 = (callbck) => {
+  window.setInterval(callbck, 25);
+};
+
 const raf = window.requestAnimationFrame ||
   window.webkitRequestAnimationFrame ||
   window.mozRequestAnimationFrame ||
-  window.msRequestAnimationFrame;
+  window.msRequestAnimationFrame ||
+  slowRafIE9;
 
 /**
  * @param {number} fromX
@@ -22,13 +27,15 @@ const raf = window.requestAnimationFrame ||
  */
 const computeDirection = (fromX, fromY, allowedDirections) => {
   const isHorizontal = Math.abs(fromX) > Math.abs(fromY);
+  let direction;
 
-  const isLeftDirection = fromX < 0 ? Direction.LEFT : Direction.RIGHT;
-  const isUpDirection = fromY < 0 ? Direction.UP : Direction.DOWN;
+  if (isHorizontal) {
+    direction = fromX < 0 ? Direction.LEFT : Direction.RIGHT;
+  } else {
+    direction = fromY < 0 ? Direction.UP : Direction.DOWN;
+  }
 
-  const direction = isHorizontal ? isLeftDirection : isUpDirection;
-
-  if (allowedDirections.indexOf(direction) === -1) {
+  if (!allowedDirections.includes(direction)) {
     return Direction.INVALID;
   }
 
@@ -40,19 +47,17 @@ const computeDirection = (fromX, fromY, allowedDirections) => {
  * @returns {Hammer.Direction} computed direction
  */
 const computeHammerDirections = (config) => {
-  let direction = Hammer.DIRECTION_NONE;
-
+  if (config.vertical && config.lateral) {
+    return Hammer.DIRECTION_ALL;
+  }
   if (config.vertical) {
-    direction = Hammer.DIRECTION_VERTICAL;
+    return Hammer.DIRECTION_VERTICAL;
   }
   if (config.lateral) {
-    direction = Hammer.DIRECTION_HORIZONTAL;
-  }
-  if (config.vertical && config.lateral) {
-    direction = Hammer.DIRECTION_ALL;
+    return Hammer.DIRECTION_HORIZONTAL;
   }
 
-  return direction;
+  return Hammer.DIRECTION_NONE;
 };
 
 /**
@@ -150,10 +155,23 @@ const Card = (stack, targetElement, prepend) => {
       })();
     });
 
-    eventEmitter.on('panmove', (event) => {
-      currentX = config.lateral ? event.deltaX : 0;
-      currentY = config.vertical ? event.deltaY : 0;
-    });
+    let panmoveEvent = (event) => {
+      currentX = event.deltaX;
+      currentY = event.deltaY;
+    };
+
+    if (config.lateral && !config.vertical) {
+      panmoveEvent = (event) => {
+        currentX = event.deltaX;
+      };
+    }
+    if (config.vertical && !config.lateral) {
+      panmoveEvent = (event) => {
+        currentX = event.deltaX;
+      };
+    }
+
+    eventEmitter.on('panmove', panmoveEvent);
 
     eventEmitter.on('panend', (event) => {
       isDraging = false;

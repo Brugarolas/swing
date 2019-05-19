@@ -1,15 +1,14 @@
 {
   "presets": [
-    [
-      "minify"
-    ],
-    [
-      "@babel/preset-env",
-      {
-        "useBuiltIns": "usage",
-        "modules": "auto"
-      }
-    ]
+    [ "minify" ],
+    [ "@babel/preset-env", {
+      "useBuiltIns": "usage",
+      "modules": "auto",
+      "corejs": 3
+    } ]
+  ],
+  "plugins": [
+    [ "@babel/transform-runtime", { "corejs": 3 } ]
   ],
   "comments": false
 }
