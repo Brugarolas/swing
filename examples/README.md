@@ -1,7 +1,7 @@
 To run locally:
 
 ```bash
-git clone git@github.com:gajus/swing.git
+git clone git@github.com:Brugarolas/swing.git
 cd ./swing/examples
 npm install
 npm start

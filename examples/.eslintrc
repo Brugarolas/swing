@@ -1,0 +1,12 @@
+{
+  rules: {
+    "sort-keys": 0,
+    "array-bracket-spacing": 0,
+    "object-property-newline": 0,
+    "no-path-concat": 0,
+    "filenames/match-regex": 0,
+    "import/unambiguous": 0,
+    "import/no-commonjs": 0,
+    "babel/object-curly-spacing": 0
+  }
+}
