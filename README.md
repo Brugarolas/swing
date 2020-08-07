@@ -1,6 +1,6 @@
 # Swing
 
-[![NPM version](https://img.shields.io/npm/v/@andres-brugarolas/swing.svg?style=flat-square)](https://www.npmjs.com/package/@andres-brugarolas/swing)
+[![NPM version](https://img.shields.io/npm/v/@brugarolas/swing.svg?style=flat-square)](https://www.npmjs.com/package/@brugarolas/swing)
 [![js-canonical-style](https://img.shields.io/badge/code%20style-canonical-blue.svg?style=flat-square)](https://github.com/gajus/canonical)
 
 A swipeable cards interface. The swipe-left/swipe-right for yes/no input. As seen in apps like [Jelly](http://jelly.co/) and [Tinder](http://www.gotinder.com/), and [many others](http://www.saydaily.com/2014/09/tinder-swipe-and-media).

@@ -1,5 +1,7 @@
 src
+test
 tests
+examples
 coverage
 .*
 *.log

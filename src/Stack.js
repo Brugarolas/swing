@@ -3,8 +3,8 @@ import rebound from 'rebound';
 import Card from './Card';
 
 /**
- * @param {Object} config Stack configuration.
- * @returns {Object} An instance of Stack object.
+ * @param {object} config Stack configuration.
+ * @returns {object} An instance of Stack object.
  */
 const Stack = (config) => {
   let eventEmitter;
@@ -24,7 +24,7 @@ const Stack = (config) => {
   /**
    * Get the configuration object.
    *
-   * @returns {Object}
+   * @returns {object}
    */
   stack.getConfig = () => {
     return config;

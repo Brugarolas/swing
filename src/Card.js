@@ -64,7 +64,7 @@ const computeHammerDirections = (config) => {
  * @param {Stack} stack
  * @param {HTMLElement} targetElement
  * @param {boolean} prepend
- * @returns {Object} An instance of Card.
+ * @returns {object} An instance of Card.
  */
 const Card = (stack, targetElement, prepend) => {
   let card;
@@ -87,6 +87,26 @@ const Card = (stack, targetElement, prepend) => {
   let throwDirectionToEventName;
   let throwOutDistance;
   let throwWhere;
+  let panmoveEvent;
+
+  const getPanMoveEvent = (currentConfig) => {
+    if (currentConfig.lateral && !currentConfig.vertical) {
+      return (event) => {
+        currentX = event.deltaX;
+      };
+    }
+
+    if (currentConfig.vertical && !currentConfig.lateral) {
+      return (event) => {
+        currentX = event.deltaX;
+      };
+    }
+
+    return (event) => {
+      currentX = event.deltaX;
+      currentY = event.deltaY;
+    };
+  };
 
   const construct = () => {
     card = {};
@@ -137,9 +157,7 @@ const Card = (stack, targetElement, prepend) => {
     eventEmitter.on('panstart', () => {
       Card.appendToParent(targetElement);
 
-      eventEmitter.trigger('dragstart', {
-        target: targetElement
-      });
+      eventEmitter.trigger('dragstart', { target: targetElement });
 
       currentX = 0;
       currentY = 0;
@@ -155,21 +173,7 @@ const Card = (stack, targetElement, prepend) => {
       })();
     });
 
-    let panmoveEvent = (event) => {
-      currentX = event.deltaX;
-      currentY = event.deltaY;
-    };
-
-    if (config.lateral && !config.vertical) {
-      panmoveEvent = (event) => {
-        currentX = event.deltaX;
-      };
-    }
-    if (config.vertical && !config.lateral) {
-      panmoveEvent = (event) => {
-        currentX = event.deltaX;
-      };
-    }
+    panmoveEvent = getPanMoveEvent(config);
 
     eventEmitter.on('panmove', panmoveEvent);
 
@@ -196,9 +200,7 @@ const Card = (stack, targetElement, prepend) => {
         card.throwIn(coordinateX, coordinateY, direction);
       }
 
-      eventEmitter.trigger('dragend', {
-        target: targetElement
-      });
+      eventEmitter.trigger('dragend', { target: targetElement });
     });
 
     // "mousedown" event fires late on touch enabled devices, thus listening
@@ -210,9 +212,7 @@ const Card = (stack, targetElement, prepend) => {
 
       targetElement.addEventListener('touchend', () => {
         if (isDraging && !isPanning) {
-          eventEmitter.trigger('dragend', {
-            target: targetElement
-          });
+          eventEmitter.trigger('dragend', { target: targetElement });
         }
       });
 
@@ -242,9 +242,7 @@ const Card = (stack, targetElement, prepend) => {
 
       targetElement.addEventListener('mouseup', () => {
         if (isDraging && !isPanning) {
-          eventEmitter.trigger('dragend', {
-            target: targetElement
-          });
+          eventEmitter.trigger('dragend', { target: targetElement });
         }
       });
     }
@@ -265,9 +263,7 @@ const Card = (stack, targetElement, prepend) => {
 
     springThrowIn.addListener({
       onSpringAtRest: () => {
-        eventEmitter.trigger('throwinend', {
-          target: targetElement
-        });
+        eventEmitter.trigger('throwinend', { target: targetElement });
       },
       onSpringUpdate: (spring) => {
         const value = spring.getCurrentValue();
@@ -280,9 +276,7 @@ const Card = (stack, targetElement, prepend) => {
 
     springThrowOut.addListener({
       onSpringAtRest: () => {
-        eventEmitter.trigger('throwoutend', {
-          target: targetElement
-        });
+        eventEmitter.trigger('throwoutend', { target: targetElement });
       },
       onSpringUpdate: (spring) => {
         const value = spring.getCurrentValue();
@@ -453,8 +447,8 @@ const Card = (stack, targetElement, prepend) => {
 /**
  * Creates a configuration object.
  *
- * @param {Object} config
- * @returns {Object}
+ * @param {object} config
+ * @returns {object}
  */
 Card.makeConfig = (config = {}) => {
   const defaultConfig = {

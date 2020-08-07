@@ -1,5 +1,5 @@
 {
-  "name": "@andres-brugarolas/swing",
+  "name": "@brugarolas/swing",
   "description": "A swipeable cards interface. The swipe-left/swipe-right for yes/no input. As seen in apps like Jelly and Tinder.",
   "version": "3.2.0",
   "author": "andres-brugarolas",
@@ -10,9 +10,11 @@
     "prefix": "^1.0.0"
   },
   "peerDependencies": {
+    "core-js": "3.1.x",
     "@babel/runtime-corejs3": "7.4.x"
   },
   "devDependencies": {
+    "core-js": "^3.1.4",
     "@babel/core": "^7.4.4",
     "@babel/cli": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
@@ -20,8 +22,8 @@
     "@babel/runtime-corejs3": "^7.4.5",
     "@babel/register": "^7.4.4",
     "babel-preset-minify": "^0.5.0",
-    "eslint": "^5.16.0",
-    "eslint-config-canonical": "^17.1.0",
+    "eslint": "^7.6.0",
+    "eslint-config-canonical": "^22.0.0",
     "husky": "^2.3.0",
     "raf": "^3.4.1",
     "mocha": "^6.1.4",

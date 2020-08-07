@@ -1,9 +1,7 @@
 /* eslint-disable max-nested-callbacks */
 
 import raf from 'raf';
-import {
-  expect
-} from 'chai';
+import { expect } from 'chai';
 import sinon from 'sinon';
 import jsdom from 'jsdom';
 
@@ -92,9 +90,7 @@ describe('DOM', () => {
       describe('isThrowOut', () => {
         it('is invoked in the event of dragend', () => {
           const spy = sinon.spy();
-          const environment = setupEnvironment({
-            isThrowOut: spy
-          });
+          const environment = setupEnvironment({ isThrowOut: spy });
 
           expect(spy.called).to.equal(false);
           environment.card.trigger('mousedown');
@@ -110,8 +106,9 @@ describe('DOM', () => {
           });
           expect(spy.called).to.equal(true);
         });
+
         [true, false].forEach((throwOut) => {
-          it('determines throwOut event', () => {
+          it(`determines throwOut event (${throwOut})`, () => {
             const environment = setupEnvironment({
               allowedDirections: [
                 Swing.Direction.UP,
@@ -149,12 +146,11 @@ describe('DOM', () => {
           });
         });
       });
+
       describe('throwOutConfidence', () => {
         it('is invoked in the event of dragmove', (done) => {
           const spy = sinon.spy();
-          const environment = setupEnvironment({
-            throwOutConfidence: spy
-          });
+          const environment = setupEnvironment({ throwOutConfidence: spy });
 
           environment.card.on('throwout', spy);
 
@@ -186,12 +182,11 @@ describe('DOM', () => {
           }, 30);
         });
       });
+
       describe('rotation', () => {
         it('is invoked in the event of dragmove', (done) => {
           const spy = sinon.spy();
-          const environment = setupEnvironment({
-            rotation: spy
-          });
+          const environment = setupEnvironment({ rotation: spy });
 
           environment.card.on('rotation', spy);
 
@@ -228,7 +223,7 @@ describe('DOM', () => {
       describe('transform', () => {
         it('is invoked in the event of dragmove', (done) => {
           const spy = sinon.spy();
-          const environment = setupEnvironment({transform: spy});
+          const environment = setupEnvironment({ transform: spy });
 
           environment.card.on('transform', spy);
 
