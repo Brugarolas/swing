@@ -155,9 +155,11 @@ const card = stack.createCard(HTMLElement);
 | `stack.createCard(element, prepend)` | Creates an instance of Card and associates it with the element. If prepend is true, the card is prepended to the stack, instead of appended [default: false]. |
 | `stack.getCard(element)` | Returns Card associated with an element. |
 | `stack.getCards()` | Returns all Cards instances in the stack. |
-| `stack.destroyCard(card)` | Returns all Cards instances in the stack. |
-| `stack.on(event, listener)` | Attaches an [event listener](#events). |
-| `card.on(event, listener)` | Attaches an [event listener](#events). |
+| `stack.destroyAll()` | Destroy all Cards instances in the stack, unbinding all Hammer.Manager events. |
+| `stack.on(event, listener)` | Attaches an [event listener](#events). Returns a listener object. |
+| `stack.off(listenerObject)` | Removes an [event listener](#events). Argument must be the listener object returned by `stack.on()` function. |
+| `card.on(event, listener)` | Attaches an [event listener](#events). Returns a listener object. |
+| `card.off(listenerObject)` | Removes an [event listener](#events). Argument must be the listener object returned by `card.on()` function. |
 | `card.throwIn(coordinateX, coordinateY)` | Throws a card into the stack from an arbitrary position. `coordinateX, coordinateY` is the position at the start of the throw. |
 | `card.throwOut(coordinateX, coordinateY)` | Throws a card out of the stack in the direction away from the original offset. `coordinateX, coordinateY` is the position at the start of the throw. |
 | `card.destroy()` | Unbinds all Hammer.Manager events. Removes the listeners from the physics simulation. |

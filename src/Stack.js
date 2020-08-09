@@ -21,6 +21,9 @@ const Stack = (config) => {
 
   construct();
 
+  stack.on = eventEmitter.on;
+  stack.off = eventEmitter.off;
+
   /**
    * Get the configuration object.
    *
@@ -37,17 +40,6 @@ const Stack = (config) => {
    */
   stack.getSpringSystem = () => {
     return springSystem;
-  };
-
-  /**
-   * Proxy to the instance of the event emitter.
-   *
-   * @param {string} eventName
-   * @param {string} listener
-   * @returns {undefined}
-   */
-  stack.on = (eventName, listener) => {
-    eventEmitter.on(eventName, listener);
   };
 
   /**

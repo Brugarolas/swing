@@ -396,6 +396,7 @@ const Card = (stack, targetElement, prepend) => {
    * Alias
    */
   card.on = eventEmitter.on;
+  card.off = eventEmitter.off;
   card.trigger = eventEmitter.trigger;
 
   /**
