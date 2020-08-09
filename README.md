@@ -153,7 +153,9 @@ const card = stack.createCard(HTMLElement);
 | Name | Description |
 | --- | --- |
 | `stack.createCard(element, prepend)` | Creates an instance of Card and associates it with the element. If prepend is true, the card is prepended to the stack, instead of appended [default: false]. |
-| `stack.getCard(element)` | Returns card associated with an element. |
+| `stack.getCard(element)` | Returns Card associated with an element. |
+| `stack.getCards()` | Returns all Cards instances in the stack. |
+| `stack.destroyCard(card)` | Returns all Cards instances in the stack. |
 | `stack.on(event, listener)` | Attaches an [event listener](#events). |
 | `card.on(event, listener)` | Attaches an [event listener](#events). |
 | `card.throwIn(coordinateX, coordinateY)` | Throws a card into the stack from an arbitrary position. `coordinateX, coordinateY` is the position at the start of the throw. |

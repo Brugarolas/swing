@@ -107,7 +107,7 @@ const Stack = (config) => {
   };
 
   /**
-   * Returns al Cards instances in the stack.
+   * Returns all Cards instances in the stack.
    *
    * @returns {Array}
    */
@@ -118,33 +118,42 @@ const Stack = (config) => {
   /**
    * Remove an instance of Card from the stack index.
    *
-   * @param {Card} card
-   * @returns {null}
+   * @param {Card|HtmlElement} card
+   * @returns {boolean} Wether card has been destroyed or not
    */
   stack.destroyCard = (card) => {
     const idx = index.findIndex((cardGroup) => {
       return cardGroup === card || cardGroup.card === card;
     });
 
-    index.splice(idx, 1);
+    const exists = idx !== -1;
 
-    eventEmitter.trigger('destroyCard', card);
+    if (exists) {
+      index.splice(idx, 1);
 
-    return index;
+      eventEmitter.trigger('destroyCard', card);
+    }
+
+    return exists;
   };
 
   /**
-  * Remove all instances of Card from the stack index.
+  * Remove all instances of Card from the stack index and clean its listeners.
   *
-  * @returns {null}
+  * @returns {number} Number of removed Cards
   */
   stack.destroyAll = () => {
+    const cardsNumber = index.length;
+
     index.forEach((element) => {
-      eventEmitter.trigger('destroyCard', element.card);
       element.card.unbindListeners();
+
+      eventEmitter.trigger('destroyCard', element.card);
     });
 
     index.length = 0;
+
+    return cardsNumber;
   };
 
   return stack;
