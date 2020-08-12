@@ -120,6 +120,8 @@ const Card = (stack, targetElement, prepend) => {
       coordinateX: 0,
       coordinateY: 0
     };
+    lastX = 0;
+    lastY = 0;
 
     /* Mapping directions to event names */
     throwDirectionToEventName = {};

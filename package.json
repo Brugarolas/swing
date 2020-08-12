@@ -26,9 +26,9 @@
     "eslint-config-canonical": "^22.0.0",
     "husky": "^4.2.5",
     "raf": "^3.4.1",
-    "mocha": "^8.1.1",
-    "chai": "^4.2.0",
-    "jsdom": "^16.4.0",
+    "ava": "^3.11.1",
+    "@ava/babel": "^1.0.1",
+    "browser-env": "^3.3.0",
     "sinon": "^9.0.2"
   },
   "keywords": [
@@ -52,11 +52,26 @@
   "scripts": {
     "build": "babel ./src --out-dir ./dist --copy-files",
     "lint": "eslint ./src ./test",
-    "test": "mocha --require @babel/register --exit"
+    "test": "ava --verbose --serial",
+    "test:debug": "ava debug --verbose --serial"
   },
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint && npm run test"
     }
+  },
+  "ava": {
+    "babel": {
+      "compileAsTests": [
+        "test/helpers/**/*"
+      ]
+    },
+    "files": [
+      "test/swing/**/*"
+    ],
+    "require": [
+      "@babel/register",
+      "./test/helpers/setupBrowserEnvironment.js"
+    ]
   }
 }

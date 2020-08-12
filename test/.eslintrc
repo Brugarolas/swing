@@ -3,6 +3,6 @@
     "canonical/mocha"
   ],
   "rules": {
-    "mocha/no-setup-in-describe": 0
+    "id-length": 0
   }
 }
